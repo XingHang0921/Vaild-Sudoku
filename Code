@@ -1,0 +1,16 @@
+class Solution(object):
+    def isValidSudoku(self, board):
+        visited_row = collections.defaultdict(set)
+        visited_col = collections.defaultdict(set)
+        visited_square = collections.defaultdict(set)
+        for row in range(len(board)):  #check row
+            for col in range(len(board[0])):
+                if(board[row][col] == '.'):
+                    continue
+                if (board[row][col] in visited_row[row] or board[row][col] in visited_col[col] or 
+                    board[row][col] in visited_square[(row//3,col//3)]):
+                    return False
+                visited_row[row].add(board[row][col])
+                visited_col[col].add(board[row][col])
+                visited_square[(row//3, col//3)].add(board[row][col])
+        return True
